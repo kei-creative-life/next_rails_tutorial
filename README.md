@@ -1,24 +1,29 @@
 # README
 
-This README would normally document whatever steps are necessary to get the
-application up and running.
+## Rails の雛形生成
 
-Things you may want to cover:
+・Rails を API モードで生成
+rails new blog --api
 
-* Ruby version
+・モデルとコントローラー生成
+$ rails g model post title:string content:string
+$ rails g controller posts
+$ rails db:create
+$ rake db:migrate
 
-* System dependencies
+・ルーティング生成（名前空間あり）
+**コントローラーのフォルダ階層を変える必要あり。**
 
-* Configuration
+Rails.application.routes.draw do
+namespace 'api' do
+namespace 'v1' do
+resources :posts
+end
+end
+end
 
-* Database creation
+・基本アクションをコントローラーで生成
+**結果は JSON で返す**
 
-* Database initialization
-
-* How to run the test suite
-
-* Services (job queues, cache servers, search engines, etc.)
-
-* Deployment instructions
-
-* ...
+・Advanced Rest client で動作確認
+**記事の表示・削除など全てのアクションを実行できたら OK**
